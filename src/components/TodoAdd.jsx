@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const TodoAdd = () => {
+export const TodoAdd = ({ handleAddAction }) => {
 
   const [inputValue, setInputValue] = useState("");
 
@@ -20,7 +20,7 @@ export const TodoAdd = () => {
       done: false
     };
 
-    console.log(newTodo)
+    handleAddAction(newTodo); // Sends item to add action
     setInputValue(""); // Resets form input
   };
 
