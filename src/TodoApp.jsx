@@ -20,6 +20,15 @@ const initialState = [
 function TodoApp() {
   const [todos, dispatch] = useReducer(todoReducer, initialState)
 
+  const handleAddAction = (newTodo) => {
+    // Sets the add action & payload to dispatch
+    const action = {
+      type: '[TODO] add todo',
+      payload: newTodo,
+    };
+    dispatch(action);
+  };
+
   return (
     <div className="container">
       <h1>TodoApp (10), <small>pending: 2</small></h1>
@@ -31,7 +40,7 @@ function TodoApp() {
         <div className='col-5'>
           <h4>Add TODO</h4>
           <hr />
-          <TodoAdd />
+          <TodoAdd handleAddAction={handleAddAction} />
         </div>
       </div>
     </div>
