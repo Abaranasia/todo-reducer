@@ -1,7 +1,11 @@
 import { useReducer, useState } from 'react'
 import reactLogo from './assets/react.svg'
 
-import { todoReducer } from './components/todoReducer';
+import { todoReducer } from './reducer/todoReducer';
+
+import { TodoAdd } from './components/TodoAdd';
+import { TodoList } from './components/TodoList';
+
 
 // import './TodoApp.css';
 
@@ -14,7 +18,7 @@ const initialState = [
 ];
 
 function TodoApp() {
-  const [state, dispatch] = useReducer(todoReducer, initialState)
+  const [todos, dispatch] = useReducer(todoReducer, initialState)
 
   return (
     <div className="container">
@@ -22,29 +26,12 @@ function TodoApp() {
       <hr />
       <div className='row'>
         <div className='col-7'>
-          <ul className='list-group'>
-            <li className='list-group-item d-flex justify-content-between'>
-              <span className='align-self-center'>Uno</span>
-              <button className='btn btn-danger'>Delete</button>
-            </li>
-          </ul>
+          <TodoList todos={todos} />
         </div>
         <div className='col-5'>
           <h4>Add TODO</h4>
           <hr />
-          <form>
-            <input
-              type="text"
-              placeholder='Add some task to do'
-              className='form-control'
-            />
-            <button
-              type="submit"
-              className='btn btn-outline-primary mt-1'
-            >
-              Add
-            </button>
-          </form>
+          <TodoAdd />
         </div>
       </div>
     </div>
