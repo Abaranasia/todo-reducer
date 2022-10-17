@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import reactLogo from './assets/react.svg'
 
 import { todoReducer } from './reducer/todoReducer';
@@ -17,8 +17,16 @@ const initialState = [
   }
 ];
 
-function TodoApp() {
-  const [todos, dispatch] = useReducer(todoReducer, initialState)
+const init = () => {
+  return JSON.parse(localStorage.getItem('todos')) || [];
+};
+
+const TodoApp = () => {
+  const [todos, dispatch] = useReducer(todoReducer, initialState, init)
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
 
   const handleAddAction = (newTodo) => {
     // Sets the add action & payload to dispatch
@@ -29,13 +37,25 @@ function TodoApp() {
     dispatch(action);
   };
 
+  const handleDeleteAction = (id) => {
+    // Sets the delete action & payload to dispatch
+    dispatch({
+      type: '[TODO] remove todo',
+      payload: id,
+    });
+  };
+
+
   return (
     <div className="container">
       <h1>TodoApp (10), <small>pending: 2</small></h1>
       <hr />
       <div className='row'>
         <div className='col-7'>
-          <TodoList todos={todos} />
+          <TodoList
+            todos={todos}
+            onDelete={handleDeleteAction}
+          />
         </div>
         <div className='col-5'>
           <h4>Add TODO</h4>
