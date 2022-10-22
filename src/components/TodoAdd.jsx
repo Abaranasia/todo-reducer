@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { TodoContext } from '../context/TodoContext';
 
-export const TodoAdd = ({ handleAddAction }) => {
+export const TodoAdd = () => {
 
   const [inputValue, setInputValue] = useState("");
+  const { handleAddAction } = useContext(TodoContext);
 
   const handleInputChange = ({ target }) => {
     setInputValue(target.value);
