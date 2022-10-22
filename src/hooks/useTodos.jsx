@@ -41,8 +41,6 @@ export const useTodos = () => {
 
   const handleToggleAction = (id) => {
     // Sets the toggle action & payload to dispatch
-    console.log(id);
-
     dispatch({
       type: '[TODO] toggle todo',
       payload: id,
